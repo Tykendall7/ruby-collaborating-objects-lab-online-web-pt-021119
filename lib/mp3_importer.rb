@@ -6,8 +6,12 @@ class MP3Importer
     @path = path
   end
   
-    def import(list_of_filenames)
-    list_of_filenames.each{ |filename| Song.new_by_filename(filename) }
+  def files
+    @files ||= Dir["#{@path}/*.mp3"].collect {|filepath| filepath.split("mp3s/")[1]}
+  end
+
+   def import
+    files.each{|f| Song.new_by_filename(f)}
   end
 end
   
